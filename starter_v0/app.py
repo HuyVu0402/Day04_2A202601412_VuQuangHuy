@@ -21,13 +21,13 @@ load_lab_env(ROOT)
 
 # Page configuration
 st.set_page_config(
-    page_title="Research Agent Studio",
+    page_title="Research Studio AI",
     page_icon="🌸",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# Soft Light Blue Pastel Theme CSS
+# Advanced Modern Pastel Perplexity-Inspired CSS
 PASTEL_CSS = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
@@ -36,69 +36,136 @@ html, body, [class*="css"] {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Soft Light Blue Background */
+/* World-Class AI Research Palette (Perplexity AI Pro Style) */
+
+/* Soft Crisp Slate Background */
 .stApp {
-    background-color: #F0F7FB;
-    color: #1E293B;
+    background-color: #F8FAFC;
+    color: #0F172A;
 }
 
-/* Custom Header Banner (Soft Light Pink Pastel) */
+/* Deep Sapphire Slate Header Banner */
 .main-header {
-    background: linear-gradient(135deg, #FFF0F5 0%, #FCE7F3 50%, #FBCFE8 100%);
-    padding: 1.25rem 1.75rem;
-    border-radius: 16px;
-    margin-bottom: 1.5rem;
-    border: 1px solid #FBCFE8;
-    box-shadow: 0 4px 20px rgba(251, 207, 232, 0.35);
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+    padding: 1.6rem 2.2rem;
+    border-radius: 20px;
+    margin-bottom: 1.75rem;
+    border: 1px solid #334155;
+    box-shadow: 0 12px 35px -10px rgba(15, 23, 42, 0.4);
+    transition: all 0.3s ease;
 }
 
 .main-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #9D174D;
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #F8FAFC;
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.65rem;
+    letter-spacing: -0.025em;
+}
+
+.main-title-span {
+    background: linear-gradient(135deg, #38BDF8 0%, #818CF8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .main-subtitle {
-    font-size: 0.9rem;
-    color: #BE185D;
-    margin-top: 0.25rem;
-}
-
-/* Badges */
-.badge {
-    display: inline-block;
-    padding: 0.25rem 0.65rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-radius: 20px;
-    margin-right: 0.4rem;
-}
-
-.badge-version { background-color: #E0E7FF; color: #3730A3; }
-.badge-provider { background-color: #D1FAE5; color: #065F46; }
-.badge-model { background-color: #E0F2FE; color: #0369A1; }
-.badge-hash { background-color: #F1F5F9; color: #475569; font-family: monospace; }
-
-/* Welcome Box (Soft Light Pink Pastel) */
-.welcome-box {
-    background-color: #FFF0F5;
-    border: 1px solid #FBCFE8;
-    color: #9D174D;
-    padding: 1rem 1.25rem;
-    border-radius: 14px;
-    margin-bottom: 1.25rem;
     font-size: 0.95rem;
-    box-shadow: 0 2px 10px rgba(251, 207, 232, 0.2);
+    color: #94A3B8;
+    margin-top: 0.35rem;
+    font-weight: 500;
 }
 
-/* Sidebar Customization */
+/* Badges & Pills */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.32rem 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border-radius: 30px;
+    margin-right: 0.45rem;
+}
+
+.badge-provider { background-color: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(52, 211, 153, 0.3); }
+.badge-model { background-color: rgba(56, 189, 248, 0.15); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.3); }
+.badge-status { background-color: rgba(129, 140, 248, 0.15); color: #A5B4FC; border: 1px solid rgba(165, 180, 252, 0.3); }
+
+/* Welcome Alert Box (Soft Crisp Ice Blue) */
+.welcome-box {
+    background: #F0F9FF;
+    border: 1px solid #BAE6FD;
+    color: #0369A1;
+    padding: 1.15rem 1.6rem;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(186, 230, 253, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Source Pill Card for Perplexity Style Results */
+.source-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #0EA5E9;
+    border-radius: 12px;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 0.65rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    transition: all 0.2s ease;
+}
+
+.source-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.12);
+}
+
+/* Sidebar Customization (Modern Slate Dark/Light) */
 section[data-testid="stSidebar"] {
-    background-color: #E8F4FA;
-    border-right: 1px solid #D0E8F2;
+    background-color: #0F172A;
+    border-right: 1px solid #1E293B;
+}
+
+section[data-testid="stSidebar"] * {
+    color: #F8FAFC !important;
+}
+
+section[data-testid="stSidebar"] .stButton > button {
+    background-color: #1E293B !important;
+    border: 1px solid #334155 !important;
+    color: #F8FAFC !important;
+}
+
+section[data-testid="stSidebar"] .stButton > button:hover {
+    background-color: #334155 !important;
+    border-color: #38BDF8 !important;
+    color: #38BDF8 !important;
+}
+
+/* Buttons Hover & Styling */
+.stButton > button {
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    background-color: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    color: #0F172A !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px) !important;
+    border-color: #38BDF8 !important;
+    color: #0284C7 !important;
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.15) !important;
 }
 
 /* Hide Streamlit Top-Right Deploy Button & Header Elements */
@@ -114,33 +181,33 @@ footer {visibility: hidden !important;}
 /* Mobile Responsive Styles (Smartphones & Small Screens) */
 @media (max-width: 768px) {
     .main-header {
-        padding: 0.85rem 1rem !important;
-        margin-bottom: 1rem !important;
-        border-radius: 12px !important;
+        padding: 1.1rem 1.25rem !important;
+        margin-bottom: 1.1rem !important;
+        border-radius: 16px !important;
     }
     .main-title {
-        font-size: 1.25rem !important;
+        font-size: 1.45rem !important;
     }
     .main-subtitle {
-        font-size: 0.8rem !important;
+        font-size: 0.85rem !important;
     }
     .badge {
-        font-size: 0.68rem !important;
-        padding: 0.2rem 0.5rem !important;
-        margin-bottom: 0.25rem !important;
+        font-size: 0.72rem !important;
+        padding: 0.25rem 0.6rem !important;
+        margin-bottom: 0.3rem !important;
     }
     .welcome-box {
-        padding: 0.75rem 0.9rem !important;
-        font-size: 0.85rem !important;
-        border-radius: 10px !important;
+        padding: 0.9rem 1.1rem !important;
+        font-size: 0.88rem !important;
+        border-radius: 12px !important;
     }
     .stChatMessage {
         padding: 0.5rem 0.65rem !important;
     }
     .stButton > button {
         font-size: 0.85rem !important;
-        padding: 0.5rem 0.75rem !important;
-        margin-bottom: 0.35rem !important;
+        padding: 0.55rem 0.85rem !important;
+        margin-bottom: 0.4rem !important;
     }
 }
 </style>
@@ -174,6 +241,8 @@ def init_session_state():
         st.session_state.turn_index = 0
     if "pending_query" not in st.session_state:
         st.session_state.pending_query = None
+    if "show_url_selector" not in st.session_state:
+        st.session_state.show_url_selector = False
 
 
 def load_artifacts():
@@ -210,6 +279,7 @@ def render_sidebar(system_prompt_path: Path, tools_path: Path, system_prompt: st
         st.session_state.transcript_path = None
         st.session_state.turn_index = 0
         st.session_state.pending_query = None
+        st.session_state.show_url_selector = False
         st.rerun()
 
     # Research Report Download Feature
@@ -274,7 +344,7 @@ def render_sidebar(system_prompt_path: Path, tools_path: Path, system_prompt: st
 
 
 def format_tool_results_to_markdown(tool_events: list[dict]) -> str:
-    """Format tool results into clean markdown sections for main result view."""
+    """Format tool results into clean Perplexity-style card sections."""
     sections = []
     for ev in tool_events:
         t_name = ev.get("tool")
@@ -284,22 +354,22 @@ def format_tool_results_to_markdown(tool_events: list[dict]) -> str:
 
         if "error" in res or "message" in res:
             err_msg = res.get("message") or res.get("error")
-            sections.append(f"> ⚠️ **Tool `{t_name}` lỗi**: {err_msg}")
+            sections.append(f"> ⚠️ **Tool `{t_name}` thông báo**: {err_msg}")
         
         elif "items" in res and res["items"]:
             items = res["items"]
-            sec = [f"#### 📰 Kết quả tìm kiếm từ `{t_name}` ({len(items)} mục):"]
+            sec = [f"#### 📚 Nguồn dữ liệu từ `{t_name}` ({len(items)} mục):"]
             for idx, item in enumerate(items[:5], 1):
                 title = item.get("title") or item.get("text") or "Chi tiết"
                 url = item.get("url") or ""
                 summary = item.get("summary") or item.get("content") or item.get("text") or ""
                 link_md = f"[{title}]({url})" if url else f"**{title}**"
-                sec.append(f"{idx}. {link_md}\n   *{summary[:200]}...*" if summary else f"{idx}. {link_md}")
+                sec.append(f"**[{idx}] {link_md}**\n\n_{summary[:220]}..._\n")
             sections.append("\n".join(sec))
             
         elif "content" in res:
             content = str(res["content"])
-            sections.append(f"#### 📄 Nội dung trích xuất từ `{t_name}`:\n```text\n{content[:500]}...\n```")
+            sections.append(f"#### 📄 Trích xuất nội dung từ `{t_name}`:\n```text\n{content[:500]}...\n```")
             
         elif "answer" in res or "question" in res:
             q = res.get("question") or res.get("answer")
@@ -317,15 +387,16 @@ def main():
         system_prompt_path, tools_path, system_prompt, tool_declarations
     )
     
-    # Header Banner
+    # Hero Header Banner
     st.markdown(
         f"""
         <div class="main-header">
-            <div class="main-title">🌸 Research Agent Studio</div>
-            <div class="main-subtitle">Evidence-Driven Research Agent UI</div>
-            <div style="margin-top: 0.6rem;">
-                <span class="badge badge-provider">Provider: {provider_name}</span>
-                <span class="badge badge-model">Model: {default_model}</span>
+            <div class="main-title">🌸 <span class="main-title-span">Research Studio AI</span></div>
+            <div class="main-subtitle">Deep Research Assistant • Real-Time Evidence Tracing • Academic Citations</div>
+            <div style="margin-top: 0.75rem;">
+                <span class="badge badge-provider">⚡ {provider_name.upper()}</span>
+                <span class="badge badge-model">🧠 {default_model}</span>
+                <span class="badge badge-status">✨ Deep Research Active</span>
             </div>
         </div>
         """,
@@ -335,27 +406,61 @@ def main():
     # Render Chat Stream
     if not st.session_state.messages:
         st.markdown(
-            '<div class="welcome-box">💡 <strong>Chào mừng!</strong> Chọn một mẫu yêu cầu nghiên cứu nhanh bên dưới hoặc nhập câu hỏi của bạn.</div>',
+            '<div class="welcome-box">💡 <strong>Chào mừng bạn đến với Research Studio!</strong> Chọn một chủ đề nghiên cứu nhanh bên dưới hoặc nhập yêu cầu để bắt đầu.</div>',
             unsafe_allow_html=True
         )
         
-        # Quick Research Mode Action Chips
-        st.markdown("#### 🔬 Lựa chọn Chức năng Research Nhanh:")
+        # Perplexity-Style Research Mode Action Cards
+        st.markdown("#### 🔬 Chức năng Research Nhanh:")
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("📚 Tìm bài báo arXiv mới nhất về AI", use_container_width=True):
+            if st.button("📚  Nghiên cứu bài báo arXiv mới nhất", use_container_width=True):
                 st.session_state.pending_query = "Tìm các bài báo nghiên cứu mới nhất về AI Agent trên arXiv"
                 st.rerun()
-            if st.button("🏢 Tra cứu Quy định / Chính sách nội bộ", use_container_width=True):
-                st.session_state.pending_query = "Chính sách làm việc từ xa của công ty quy định như thế nào?"
+            if st.button("🏢  Tra cứu Quy định Trích dẫn & Workflow Research AI", use_container_width=True):
+                st.session_state.pending_query = "Quy định trích dẫn nguồn khi viết báo cáo nghiên cứu AI như thế nào?"
                 st.rerun()
         with col2:
-            if st.button("📰 Tổng hợp Tin tức Công nghệ AI", use_container_width=True):
+            if st.button("📰  Điểm tin Thời sự Công nghệ AI", use_container_width=True):
                 st.session_state.pending_query = "Tin tức AI hôm nay có gì nổi bật?"
                 st.rerun()
-            if st.button("🔗 Tóm tắt nội dung bài viết từ URL", use_container_width=True):
-                st.session_state.pending_query = "Đọc và tóm tắt bài báo https://arxiv.org/abs/1706.03762"
+            if st.button("🔗  Phân tích & Tóm tắt bài viết từ URL", use_container_width=True):
+                st.session_state.show_url_selector = True
                 st.rerun()
+
+        # Database Article Picker Card (Hiển thị danh sách bài báo khi người dùng muốn chọn tóm tắt)
+        if st.session_state.get("show_url_selector", False):
+            with st.container():
+                st.markdown("---")
+                st.markdown("### 📑 Danh sách Bài báo & Tài liệu có sẵn trong Database")
+                
+                featured_articles = {
+                    "📑 Attention Is All You Need (Transformer Paper - arXiv:1706.03762)": "https://arxiv.org/abs/1706.03762",
+                    "📑 DeepSeek-R1: Incentivizing Reasoning Capability via RL (arXiv:2501.12948)": "https://arxiv.org/abs/2501.12948",
+                    "📑 Language Models are Few-Shot Learners (GPT-3 - arXiv:2005.14165)": "https://arxiv.org/abs/2005.14165",
+                    "📑 Chain-of-Thought Prompting Elicits Reasoning in LLMs (arXiv:2201.11903)": "https://arxiv.org/abs/2201.11903",
+                    "🏢 AI Research Policy (Chính sách Nghiên cứu AI Nội bộ)": "https://company-policy.internal/ai-research",
+                    "🏢 Data Privacy Policy (Chính sách Bảo mật Dữ liệu Nội bộ)": "https://company-policy.internal/data-privacy",
+                }
+
+                selected_paper_name = st.selectbox(
+                    "Chọn một bài báo từ Database để Agent tóm tắt:",
+                    list(featured_articles.keys())
+                )
+                selected_url = featured_articles[selected_paper_name]
+                
+                custom_url = st.text_input("Hoặc dán đường link URL bài báo khác tùy chỉnh tại đây:", value=selected_url)
+                
+                c_btn1, c_btn2 = st.columns([2, 1])
+                with c_btn1:
+                    if st.button("🚀 Bắt đầu Phân tích & Tóm tắt Bài báo đã chọn", use_container_width=True, type="primary"):
+                        st.session_state.show_url_selector = False
+                        st.session_state.pending_query = f"Đọc và tóm tắt chi tiết nội dung bài viết từ URL: {custom_url}"
+                        st.rerun()
+                with c_btn2:
+                    if st.button("❌ Hủy chọn", use_container_width=True):
+                        st.session_state.show_url_selector = False
+                        st.rerun()
 
     for msg in st.session_state.messages:
         role = msg["role"]
@@ -395,12 +500,13 @@ def main():
                         st.caption("*(Agent đã thực thi xong)*")
 
     # Chat Input Box
-    user_input = st.chat_input("Nhập câu hỏi hoặc yêu cầu nghiên cứu...")
+    user_input = st.chat_input("Nhập câu hỏi hoặc chủ đề nghiên cứu...")
 
-    # Process input from text box OR pending quick action chip
-    active_query = user_input or st.session_state.pop("pending_query", None)
+    # Process input from text box OR pending quick action card
+    active_query = user_input or st.session_state.get("pending_query", None)
 
     if active_query:
+        st.session_state.pending_query = None
         st.session_state.messages.append({"role": "user", "content": active_query})
         st.session_state.turn_index += 1
         

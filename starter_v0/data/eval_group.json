@@ -1,7 +1,291 @@
 {
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
-  "description": "Template để NHÓM tự viết đúng 10 case: 5 single-turn dùng query và 5 multi-turn dùng turns. Mỗi case cần: id, phase='B', failure_type (thuộc allowed_failure_types), expect (tool_calls[...] hoặc no_tool=true), và metadata.what_it_tests. File để trống có chủ đích vì mỗi nhóm phải tự thiết kế các case này.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "description": "Bộ 10 test case của nhóm: 5 single-turn dùng query và 5 multi-turn dùng turns. Tập trung kiểm tra các tool mới format, send, policy, papers, paper_text; đồng thời kiểm tra argument, carry-over, correction và confirmation boundary.",
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "G01_policy_data_privacy",
+      "phase": "B",
+      "suite": "group",
+      "query": "Theo chính sách nội bộ, có được đưa API key vào prompt hoặc commit lên GitHub không? Tra cứu đúng 2 mục thuộc chính sách bảo mật dữ liệu.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "policy",
+            "args": {
+              "policy_area": "data_privacy",
+              "top_k": 2
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Câu hỏi về quy định nội bộ và API key phải dùng policy; ánh xạ bảo mật dữ liệu sang policy_area=data_privacy và top_k=2."
+      }
+    },
+    {
+      "id": "G02_papers_latest_rag",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm 4 bài báo khoa học mới nhất trên arXiv với đúng từ khóa 'retrieval augmented generation'.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "retrieval augmented generation",
+              "max_results": 4,
+              "sort_by": "submittedDate"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Tìm paper phải dùng papers; 'mới nhất' ánh xạ thành sort_by=submittedDate và giữ đúng max_results=4."
+      }
+    },
+    {
+      "id": "G03_read_arxiv_paper_text",
+      "phase": "B",
+      "suite": "group",
+      "query": "Đọc nội dung tối đa 3 trang của bài arXiv này: https://arxiv.org/abs/1706.03762",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "arxiv_url": "https://arxiv.org/abs/1706.03762",
+              "max_pages": 3
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Có URL arXiv cụ thể và yêu cầu đọc nội dung phải dùng paper_text, không dùng fetch hoặc papers; truyền đúng max_pages=3."
+      }
+    },
+    {
+      "id": "G04_format_existing_items",
+      "phase": "B",
+      "suite": "group",
+      "query": "Dùng công cụ định dạng để trình bày các mục dữ liệu sau thành bullet, tiêu đề 'AI Brief': mục 1 có title='OpenAI Update', url='https://openai.com', source='OpenAI'; mục 2 có title='Anthropic Update', url='https://anthropic.com', source='Anthropic'.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "format",
+            "args": {
+              "template": "bullets",
+              "headline": "AI Brief"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Dữ liệu đã có sẵn và chỉ cần trình bày phải dùng format; chấm template=bullets và headline, không gọi tool tìm kiếm."
+      }
+    },
+    {
+      "id": "G05_confirm_before_send",
+      "phase": "B",
+      "suite": "group",
+      "query": "Gửi lên Telegram nội dung 'Bản tin AI đã sẵn sàng' ngay giúp mình.",
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Send là hành động có side effect nên phải hỏi xác nhận yes/no trước; không được gọi send ngay khi chưa có xác nhận rõ ràng."
+      }
+    },
+    {
+      "id": "G06_multiturn_papers_correction",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm 10 bài báo về AI agents trên arXiv."
+        },
+        {
+          "role": "user",
+          "content": "Đổi lại chỉ lấy 3 bài thôi."
+        },
+        {
+          "role": "user",
+          "content": "Giữ nguyên đúng từ khóa 'AI agents' và sắp xếp theo ngày cập nhật gần nhất."
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "AI agents",
+              "max_results": 3,
+              "sort_by": "lastUpdatedDate"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Carry-over chủ đề qua nhiều lượt, sửa max_results từ 10 xuống 3 và ánh xạ 'ngày cập nhật gần nhất' thành lastUpdatedDate."
+      }
+    },
+    {
+      "id": "G07_multiturn_supply_arxiv_url",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Đọc giúp mình 2 trang đầu của paper này."
+        },
+        {
+          "role": "user",
+          "content": "Link đây: https://arxiv.org/abs/1706.03762"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ đọc đúng link đó và vẫn giới hạn 2 trang."
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "arxiv_url": "https://arxiv.org/abs/1706.03762",
+              "max_pages": 2
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Sau khi URL arXiv được bổ sung ở lượt sau, agent phải dùng paper_text và carry-over giới hạn max_pages=2."
+      }
+    },
+    {
+      "id": "G08_multiturn_policy_scope_correction",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tra cứu 5 mục chính sách nội bộ về cách trích dẫn nguồn."
+        },
+        {
+          "role": "user",
+          "content": "À đổi sang chính sách bảo mật dữ liệu."
+        },
+        {
+          "role": "user",
+          "content": "Chỉ lấy 2 mục liên quan đến dữ liệu bí mật và thông tin cá nhân."
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "policy",
+            "args": {
+              "policy_area": "data_privacy",
+              "top_k": 2
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Sửa policy_area từ source_citation sang data_privacy và sửa top_k từ 5 xuống 2 theo yêu cầu mới nhất."
+      }
+    },
+    {
+      "id": "G09_multiturn_format_template_correction",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Mình có hai mục: title='AI News', url='https://example.com/ai', source='Example'; và title='Robotics News', url='https://example.com/robotics', source='Example'."
+        },
+        {
+          "role": "user",
+          "content": "Trình bày chúng theo dạng sections."
+        },
+        {
+          "role": "user",
+          "content": "Đổi lại thành brief và đặt tiêu đề 'Weekly AI Brief'."
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "format",
+            "args": {
+              "template": "brief",
+              "headline": "Weekly AI Brief"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Dùng dữ liệu đã có từ lượt trước, sửa template từ sections sang brief và truyền đúng headline; không gọi lookup."
+      }
+    },
+    {
+      "id": "G10_multiturn_confirmed_send",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Nội dung cần gửi là: Bản tin AI tuần này đã hoàn tất."
+        },
+        {
+          "role": "user",
+          "content": "Hãy gửi nội dung đó lên Telegram."
+        },
+        {
+          "role": "user",
+          "content": "Tôi xác nhận gửi đúng nội dung 'Bản tin AI tuần này đã hoàn tất.'."
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Bản tin AI tuần này đã hoàn tất.",
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Khi người dùng đã xác nhận rõ ở lượt cuối, agent mới được gọi send với confirmed=true và carry-over đúng nội dung."
+      }
+    }
+  ]
 }

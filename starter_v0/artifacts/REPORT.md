@@ -7,7 +7,11 @@
 ## Team
 
 - Team: Day04 Lab Group
-- Members: Vu Quang Huy
+- Members: 
+Nguyễn Hoàng Sơn - 2A202601939
+Nguyễn Đức Mạnh - 2A202601176
+Vũ Quang Huy - 2A202601412
+Thiều Thị Ngọc Ánh - 2A202601864
 - Provider/model: OpenAI GPT-4o-mini (run eval), Gemini 3.5 Flash (thử thêm nhóm case)
 
 ---
@@ -21,8 +25,6 @@ Agent này dùng để hỗ trợ nghiên cứu nhanh bằng cách chọn tool p
 **Link dùng thử (truy cập được trong showdown):**
 
 > Có thể dùng local UI hoặc chạy demo trực tiếp từ terminal bằng Streamlit.
->
-> URL: localhost:8501
 
 ## A2. Tool agent có
 

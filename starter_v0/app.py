@@ -27,7 +27,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Pastel ChatGPT Theme CSS
+# Soft Light Blue Pastel Theme CSS
 PASTEL_CSS = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
@@ -36,25 +36,26 @@ html, body, [class*="css"] {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* Soft Light Blue Background */
 .stApp {
-    background-color: #FAFAFC;
-    color: #2D3748;
+    background-color: #F0F7FB;
+    color: #1E293B;
 }
 
-/* Custom Header Banner */
+/* Custom Header Banner (Soft Light Pink Pastel) */
 .main-header {
-    background: linear-gradient(135deg, #E6FFFA 0%, #EBF8FF 50%, #F3E8FF 100%);
+    background: linear-gradient(135deg, #FFF0F5 0%, #FCE7F3 50%, #FBCFE8 100%);
     padding: 1.25rem 1.75rem;
     border-radius: 16px;
     margin-bottom: 1.5rem;
-    border: 1px solid #E2E8F0;
-    box-shadow: 0 4px 20px rgba(160, 174, 192, 0.08);
+    border: 1px solid #FBCFE8;
+    box-shadow: 0 4px 20px rgba(251, 207, 232, 0.35);
 }
 
 .main-title {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #2C3E50;
+    color: #9D174D;
     margin: 0;
     display: flex;
     align-items: center;
@@ -63,7 +64,7 @@ html, body, [class*="css"] {
 
 .main-subtitle {
     font-size: 0.9rem;
-    color: #718096;
+    color: #BE185D;
     margin-top: 0.25rem;
 }
 
@@ -77,19 +78,71 @@ html, body, [class*="css"] {
     margin-right: 0.4rem;
 }
 
-.badge-version { background-color: #E9D8FD; color: #553C9A; }
-.badge-provider { background-color: #C6F6D5; color: #22543D; }
-.badge-model { background-color: #BEE3F8; color: #2B6CB0; }
-.badge-hash { background-color: #EDF2F7; color: #4A5568; font-family: monospace; }
+.badge-version { background-color: #E0E7FF; color: #3730A3; }
+.badge-provider { background-color: #D1FAE5; color: #065F46; }
+.badge-model { background-color: #E0F2FE; color: #0369A1; }
+.badge-hash { background-color: #F1F5F9; color: #475569; font-family: monospace; }
+
+/* Welcome Box (Soft Light Pink Pastel) */
+.welcome-box {
+    background-color: #FFF0F5;
+    border: 1px solid #FBCFE8;
+    color: #9D174D;
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 10px rgba(251, 207, 232, 0.2);
+}
 
 /* Sidebar Customization */
 section[data-testid="stSidebar"] {
-    background-color: #F7FAFC;
-    border-right: 1px solid #EDF2F7;
+    background-color: #E8F4FA;
+    border-right: 1px solid #D0E8F2;
 }
 
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
+/* Hide Streamlit Top-Right Deploy Button & Header Elements */
+.stAppDeployButton {display: none !important;}
+[data-testid="stAppDeployButton"] {display: none !important;}
+header[data-testid="stHeader"] {
+    background-color: transparent !important;
+    z-index: 100 !important;
+}
+#MainMenu {visibility: hidden !important;}
+footer {visibility: hidden !important;}
+
+/* Mobile Responsive Styles (Smartphones & Small Screens) */
+@media (max-width: 768px) {
+    .main-header {
+        padding: 0.85rem 1rem !important;
+        margin-bottom: 1rem !important;
+        border-radius: 12px !important;
+    }
+    .main-title {
+        font-size: 1.25rem !important;
+    }
+    .main-subtitle {
+        font-size: 0.8rem !important;
+    }
+    .badge {
+        font-size: 0.68rem !important;
+        padding: 0.2rem 0.5rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+    .welcome-box {
+        padding: 0.75rem 0.9rem !important;
+        font-size: 0.85rem !important;
+        border-radius: 10px !important;
+    }
+    .stChatMessage {
+        padding: 0.5rem 0.65rem !important;
+    }
+    .stButton > button {
+        font-size: 0.85rem !important;
+        padding: 0.5rem 0.75rem !important;
+        margin-bottom: 0.35rem !important;
+    }
+}
 </style>
 """
 
@@ -119,6 +172,8 @@ def init_session_state():
         st.session_state.transcript_path = None
     if "turn_index" not in st.session_state:
         st.session_state.turn_index = 0
+    if "pending_query" not in st.session_state:
+        st.session_state.pending_query = None
 
 
 def load_artifacts():
@@ -130,6 +185,22 @@ def load_artifacts():
     return system_prompt_path, tools_path, system_prompt, tool_declarations
 
 
+def generate_markdown_report() -> str:
+    """Generate downloadable markdown research report from chat session."""
+    lines = [
+        "# BÁO CÁO NGHIÊN CỨU AI (RESEARCH REPORT)",
+        f"**Thời gian xuất báo cáo**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+        "---",
+        ""
+    ]
+    for idx, msg in enumerate(st.session_state.messages, 1):
+        role_title = "👤 CÂU HỎI / YÊU CẦU NGHIÊN CỨU" if msg["role"] == "user" else "🤖 KẾT QUẢ TỔNG HỢP (RESEARCH AGENT)"
+        lines.append(f"## {idx}. {role_title}")
+        lines.append(msg.get("content", ""))
+        lines.append("\n" + "-"*40 + "\n")
+    return "\n".join(lines)
+
+
 def render_sidebar(system_prompt_path: Path, tools_path: Path, system_prompt: str, tool_declarations: list[dict]):
     # Top Action: New Chat Button
     if st.sidebar.button("➕ Cuộc trò chuyện mới", use_container_width=True, type="primary"):
@@ -138,12 +209,23 @@ def render_sidebar(system_prompt_path: Path, tools_path: Path, system_prompt: st
         st.session_state.transcript = None
         st.session_state.transcript_path = None
         st.session_state.turn_index = 0
+        st.session_state.pending_query = None
         st.rerun()
+
+    # Research Report Download Feature
+    if st.session_state.messages:
+        report_md = generate_markdown_report()
+        st.sidebar.download_button(
+            label="📥 Xuất Báo cáo Research (.md)",
+            data=report_md,
+            file_name=f"research_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md",
+            mime="text/markdown",
+            use_container_width=True
+        )
 
     st.sidebar.markdown("---")
     st.sidebar.markdown("### 💬 Lịch sử trò chuyện")
     
-    # Load and render saved transcript list in ChatGPT sidebar style
     if TRANSCRIPTS_DIR.exists():
         transcripts = sorted(TRANSCRIPTS_DIR.glob("*.transcript.json"), reverse=True)
         if transcripts:
@@ -186,26 +268,8 @@ def render_sidebar(system_prompt_path: Path, tools_path: Path, system_prompt: st
         else:
             st.sidebar.caption("Chưa có lịch sử trò chuyện.")
 
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("### ⚙️ Cấu hình Artifact")
-    
-    # Version selector
-    version_input = st.sidebar.selectbox(
-        "Phiên bản Version",
-        ["v0", "v1", "v2", "v3"],
-        index=0,
-    )
-    
+    version_input = "v0"
     artifact_ver = build_artifact_version(version_input, system_prompt_path, tools_path)
-    st.sidebar.caption(f"**Artifact Hash**: `{artifact_ver.artifact_version}`")
-    
-    with st.sidebar.expander("📝 Xem System Prompt", expanded=False):
-        st.code(system_prompt, language="markdown")
-        
-    with st.sidebar.expander(f"🛠️ Danh sách Tool ({len(tool_declarations)})", expanded=False):
-        for tool in tool_declarations:
-            st.markdown(f"**`{tool.get('name')}`**: {tool.get('description', '')[:80]}...")
-
     return version_input, artifact_ver
 
 
@@ -260,10 +324,8 @@ def main():
             <div class="main-title">🌸 Research Agent Studio</div>
             <div class="main-subtitle">Evidence-Driven Research Agent UI</div>
             <div style="margin-top: 0.6rem;">
-                <span class="badge badge-version">Version: {version_tag}</span>
                 <span class="badge badge-provider">Provider: {provider_name}</span>
                 <span class="badge badge-model">Model: {default_model}</span>
-                <span class="badge badge-hash">Hash: {artifact_ver.artifact_version}</span>
             </div>
         </div>
         """,
@@ -272,7 +334,28 @@ def main():
     
     # Render Chat Stream
     if not st.session_state.messages:
-        st.info("💡 **Chào mừng!** Hãy nhập câu hỏi hoặc yêu cầu nghiên cứu bên dưới. Agent sẽ tự động chạy các tool và in kết quả câu trả lời chi tiết.")
+        st.markdown(
+            '<div class="welcome-box">💡 <strong>Chào mừng!</strong> Chọn một mẫu yêu cầu nghiên cứu nhanh bên dưới hoặc nhập câu hỏi của bạn.</div>',
+            unsafe_allow_html=True
+        )
+        
+        # Quick Research Mode Action Chips
+        st.markdown("#### 🔬 Lựa chọn Chức năng Research Nhanh:")
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("📚 Tìm bài báo arXiv mới nhất về AI", use_container_width=True):
+                st.session_state.pending_query = "Tìm các bài báo nghiên cứu mới nhất về AI Agent trên arXiv"
+                st.rerun()
+            if st.button("🏢 Tra cứu Quy định / Chính sách nội bộ", use_container_width=True):
+                st.session_state.pending_query = "Chính sách làm việc từ xa của công ty quy định như thế nào?"
+                st.rerun()
+        with col2:
+            if st.button("📰 Tổng hợp Tin tức Công nghệ AI", use_container_width=True):
+                st.session_state.pending_query = "Tin tức AI hôm nay có gì nổi bật?"
+                st.rerun()
+            if st.button("🔗 Tóm tắt nội dung bài viết từ URL", use_container_width=True):
+                st.session_state.pending_query = "Đọc và tóm tắt bài báo https://arxiv.org/abs/1706.03762"
+                st.rerun()
 
     for msg in st.session_state.messages:
         role = msg["role"]
@@ -305,7 +388,6 @@ def main():
                 if content and content.strip():
                     st.markdown(content)
                 else:
-                    # Formatted result from tool events if main content is empty
                     formatted_tool_res = format_tool_results_to_markdown(tool_events)
                     if formatted_tool_res:
                         st.markdown(formatted_tool_res)
@@ -315,100 +397,119 @@ def main():
     # Chat Input Box
     user_input = st.chat_input("Nhập câu hỏi hoặc yêu cầu nghiên cứu...")
 
-    if user_input:
-        st.session_state.messages.append({"role": "user", "content": user_input})
+    # Process input from text box OR pending quick action chip
+    active_query = user_input or st.session_state.pop("pending_query", None)
+
+    if active_query:
+        st.session_state.messages.append({"role": "user", "content": active_query})
         st.session_state.turn_index += 1
         
-        try:
-            provider = make_provider(provider_name)
-            openai_tools = to_openai_tools(tool_declarations)
-            
-            if st.session_state.transcript is None:
-                timestamp = datetime.now().strftime("%Y%m%dT%H%M%S%f")
-                transcript_id = "_".join([safe_slug(version_tag), safe_slug(provider_name), timestamp])
-                st.session_state.transcript_path = TRANSCRIPTS_DIR / f"{transcript_id}.transcript.json"
-                st.session_state.transcript = {
-                    "transcript_id": transcript_id,
-                    **artifact_version_dict(artifact_ver),
-                    "provider": provider_name,
-                    "model": default_model,
-                    "system_prompt": str(system_prompt_path),
-                    "tools": str(tools_path),
-                    "history_window": 5,
-                    "max_tool_rounds": 4,
-                    "created_at": now_iso(),
-                    "updated_at": now_iso(),
-                    "turns": [],
-                }
+        # Display user message
+        with st.chat_message("user", avatar="👤"):
+            st.markdown(active_query)
 
-            working_messages = [
-                {"role": "system", "content": system_prompt},
-                *trim_history(st.session_state.history, 5),
-                {"role": "user", "content": user_input},
-            ]
+        # Create assistant response container with inline spinner next to robot icon
+        with st.chat_message("assistant", avatar="🤖"):
+            with st.spinner("Đang suy luận & thực thi tool..."):
+                try:
+                    provider = make_provider(provider_name)
+                    openai_tools = to_openai_tools(tool_declarations)
+                    
+                    if st.session_state.transcript is None:
+                        timestamp = datetime.now().strftime("%Y%m%dT%H%M%S%f")
+                        transcript_id = "_".join([safe_slug(version_tag), safe_slug(provider_name), timestamp])
+                        st.session_state.transcript_path = TRANSCRIPTS_DIR / f"{transcript_id}.transcript.json"
+                        st.session_state.transcript = {
+                            "transcript_id": transcript_id,
+                            **artifact_version_dict(artifact_ver),
+                            "provider": provider_name,
+                            "model": default_model,
+                            "system_prompt": str(system_prompt_path),
+                            "tools": str(tools_path),
+                            "history_window": 5,
+                            "max_tool_rounds": 4,
+                            "created_at": now_iso(),
+                            "updated_at": now_iso(),
+                            "turns": [],
+                        }
 
-            turn_record = {
-                "turn_index": st.session_state.turn_index,
-                "started_at": now_iso(),
-                "user": user_input,
-                "status": "started",
-                "assistant_text": None,
-                "rounds": [],
-                "tool_events": [],
-            }
+                    working_messages = [
+                        {"role": "system", "content": system_prompt},
+                        *trim_history(st.session_state.history, 5),
+                        {"role": "user", "content": active_query},
+                    ]
 
-            with st.spinner("🤖 Đang suy luận & thực thi tool..."):
-                loop_result = run_model_tool_loop(
-                    provider=provider,
-                    messages=working_messages,
-                    tools=openai_tools,
-                    model=default_model,
-                    max_tool_rounds=4,
-                )
+                    turn_record = {
+                        "turn_index": st.session_state.turn_index,
+                        "started_at": now_iso(),
+                        "user": active_query,
+                        "status": "started",
+                        "assistant_text": None,
+                        "rounds": [],
+                        "tool_events": [],
+                    }
 
-            turn_record.update(loop_result)
-            assistant_text = loop_result.get("assistant_text") or ""
-            
-            # Extract text from rounds if empty
-            if not assistant_text.strip():
-                round_texts = [r.get("assistant_text") for r in loop_result.get("rounds", []) if r.get("assistant_text") and r.get("assistant_text").strip()]
-                if round_texts:
-                    assistant_text = "\n\n".join(round_texts)
+                    loop_result = run_model_tool_loop(
+                        provider=provider,
+                        messages=working_messages,
+                        tools=openai_tools,
+                        model=default_model,
+                        max_tool_rounds=4,
+                    )
 
-            # If still empty, format results from tool events directly as main output
-            if not assistant_text.strip():
-                tool_events = loop_result.get("tool_events", [])
-                assistant_text = format_tool_results_to_markdown(tool_events)
+                    turn_record.update(loop_result)
+                    assistant_text = loop_result.get("assistant_text") or ""
+                    
+                    # Extract text from rounds if empty
+                    if not assistant_text.strip():
+                        round_texts = [r.get("assistant_text") for r in loop_result.get("rounds", []) if r.get("assistant_text") and r.get("assistant_text").strip()]
+                        if round_texts:
+                            assistant_text = "\n\n".join(round_texts)
 
-            if not assistant_text.strip():
-                assistant_text = "*(Agent đã thực thi tool nhưng không sinh ra văn bản bổ sung.)*"
+                    # If still empty, format results from tool events directly as main output
+                    if not assistant_text.strip():
+                        tool_events = loop_result.get("tool_events", [])
+                        assistant_text = format_tool_results_to_markdown(tool_events)
 
-            # Update Session History
-            st.session_state.history.append({"role": "user", "content": user_input})
-            st.session_state.history.append({"role": "assistant", "content": assistant_text})
+                    if not assistant_text.strip():
+                        assistant_text = "*(Agent đã thực thi tool nhưng không sinh ra văn bản bổ sung.)*"
 
-            # Append Assistant Message to UI
-            st.session_state.messages.append({
-                "role": "assistant",
-                "content": assistant_text,
-                "rounds": loop_result.get("rounds", []),
-                "tool_events": loop_result.get("tool_events", []),
-                "status": loop_result.get("status"),
-            })
+                    # Stream text output word-by-word into active assistant container
+                    def text_stream_generator(text: str):
+                        import time
+                        words = text.split(" ")
+                        for i, word in enumerate(words):
+                            yield word + (" " if i < len(words) - 1 else "")
+                            time.sleep(0.012)
 
-            # Save Transcript
-            turn_record["ended_at"] = now_iso()
-            st.session_state.transcript["turns"].append(turn_record)
-            write_transcript(st.session_state.transcript_path, st.session_state.transcript)
+                    st.write_stream(text_stream_generator(assistant_text))
 
-        except Exception as exc:
-            error_msg = f"{type(exc).__name__}: {str(exc)}"
-            st.session_state.messages.append({
-                "role": "assistant",
-                "content": f"⚠️ **Lỗi thực thi**: {error_msg}",
-                "status": "provider_error",
-                "error": error_msg,
-            })
+                    # Update Session History
+                    st.session_state.history.append({"role": "user", "content": active_query})
+                    st.session_state.history.append({"role": "assistant", "content": assistant_text})
+
+                    # Append Assistant Message to UI
+                    st.session_state.messages.append({
+                        "role": "assistant",
+                        "content": assistant_text,
+                        "rounds": loop_result.get("rounds", []),
+                        "tool_events": loop_result.get("tool_events", []),
+                        "status": loop_result.get("status"),
+                    })
+
+                    # Save Transcript
+                    turn_record["ended_at"] = now_iso()
+                    st.session_state.transcript["turns"].append(turn_record)
+                    write_transcript(st.session_state.transcript_path, st.session_state.transcript)
+
+                except Exception as exc:
+                    error_msg = f"{type(exc).__name__}: {str(exc)}"
+                    st.session_state.messages.append({
+                        "role": "assistant",
+                        "content": f"⚠️ **Lỗi thực thi**: {error_msg}",
+                        "status": "provider_error",
+                        "error": error_msg,
+                    })
 
         st.rerun()
 

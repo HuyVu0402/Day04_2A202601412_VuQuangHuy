@@ -1,0 +1,509 @@
+{
+  "transcript_id": "v0_gemini_20260729T152744619746",
+  "version": "v0",
+  "artifact_version": "v0+peb1c8179815b+t6cdb53d5d7b8",
+  "prompt_hash": "eb1c8179815bd79d34de7d326420bb99b3072e6e8ae96464c02d4411f905fc68",
+  "tools_hash": "6cdb53d5d7b8de80d60b298b1357f462cedbedfae261d5ba60b08ccc401687c5",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "system_prompt": "F:\\Vinuni\\lab\\Day04_2A202601412_VuQuangHuy\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "F:\\Vinuni\\lab\\Day04_2A202601412_VuQuangHuy\\starter_v0\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T15:27:44",
+  "updated_at": "2026-07-29T15:28:01",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T15:27:44",
+      "user": "hôm nay tin tức AI có gì",
+      "status": "max_tool_rounds",
+      "assistant_text": "Stopped after 4 tool rounds. Inspect the transcript for details.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "topic": "news",
+                "timeframe": "day",
+                "query": "AI news"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "topic": "news",
+                "timeframe": "day",
+                "query": "AI news"
+              },
+              "result": {
+                "tool": "web_search",
+                "error": "RuntimeError",
+                "message": "Missing TAVILY_API_KEY env var"
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "social_search",
+              "args": {
+                "search_type": "Latest",
+                "query": "AI news"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "social_search",
+              "args": {
+                "search_type": "Latest",
+                "query": "AI news"
+              },
+              "result": {
+                "tool": "search_tweets",
+                "error": "RuntimeError",
+                "message": "Missing RAPIDAPI_KEY env var"
+              }
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "papers",
+              "args": {
+                "query": "large language models",
+                "sort_by": "submittedDate"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "papers",
+              "args": {
+                "query": "large language models",
+                "sort_by": "submittedDate"
+              },
+              "result": {
+                "tool": "arxiv_search",
+                "query": "large language models",
+                "api_query": "all:large AND all:language AND all:models",
+                "total_results": 96797,
+                "items": [
+                  {
+                    "arxiv_id": "2607.26055v1",
+                    "title": "$π\\mathbf{R}^2$: Reactive Real-time Flow Policies",
+                    "summary": "Generalist manipulation policies increasingly take the form of action-chunking flow policies built on large pretrained backbones. Such chunks run open-loop, so the policy cannot react to sensory input arriving mid-execution, sacrificing \\emph{reactivity}. Replanning more often would restore it, but the perception-to-action pipeline (a large backbone plus multiple denoising steps) is too slow: this \\emph{latency} forbids frequent replanning and leaves committed actions stale, making such policies ill-suited for dynamic, closed-loop control. We present $π\\mathbf{R}^2$, which makes these policies reactive and real-time while retaining large backbones, expressive multi-modal policies, and multi-action prediction. Built on the per-position noise schedule of diffusion forcing, $π\\mathbf{R}^2$ contributes two ideas. First, it splits conditioning into a fast channel (proprioception, fresh every tick) and an asynchronously updated slow channel (vision-language features), so the policy reacts to proprioception within a chunk while tolerating stale vision. Second, a latency-adaptive flow schedule treats in-flight actions as inpainting conditioning and emits actions in one denoising step per call, letting one trained model adapt to varying hardware latency. Requiring minimal modification to existing architectures, $π\\mathbf{R}^2$ can be finetuned from a pretrained policy: applied to GR00T-N1.7 on a real xArm6+XHand platform, it replans closed-loop roughly $4\\times$ faster than the base policy (~$25$Hz on an A5000 GPU), acting on a fresh observation every $40$ms. Across simulation and real-world manipulation tasks, $π\\mathbf{R}^2$ improves the success rate by up to $23\\%$ in simulation and $30\\%$ in the real world over the strongest baseline. Project page: https://pi-r2-flow.github.io/",
+                    "authors": [
+                      "Sungjae Park",
+                      "Shubham Tulsiani"
+                    ],
+                    "published": "2026-07-28T17:59:31Z",
+                    "updated": "2026-07-28T17:59:31Z",
+                    "url": "http://arxiv.org/abs/2607.26055v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.26055v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.RO",
+                    "categories": [
+                      "cs.RO",
+                      "cs.AI",
+                      "cs.LG"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.26024v1",
+                    "title": "LLM4OSC: Profile-Bound Natural Language Control with Deterministic Validation for Open Sound Control",
+                    "summary": "Open Sound Control (OSC) is the dominant wire protocol for real-time parametric control in professional audio, live performance, and virtual production. Large language models can emit plausible OSC, but they hallucinate addresses, mishandle type tags, and fail under paraphrase- unacceptable in show-critical contexts. We present LLM4OSC, a local-first architecture in which models propose structured intent JSON over a human-reviewed device profile, and deterministic code validates, clamps, and encodes before any UDP send. We introduce a frozen evaluation harness with CI gates on wrong-send rate: mismatches that would still pass validation and transmit. On a Max/MSP hero profile (12 patterns; 8 literal + 8 paraphrase + 4 refusal cases), after profile tag enrichment, symbolic slot fill, NL refine, and a retrieval confidence gate, backends B0--B3 all pass frozen gates (100% semantic accuracy, 0% wrong-send). B0 (rules) remains the production default at ~0.05ms; LLM backends remain ~3-4s. Historical few-shot B2 accuracy of 62.5% rises to 100% on this suite only after symbolic post-processing- not because the 0.5B model alone becomes show-safe. We argue for propose-validate-send and wrong-send rate as first-class metrics for language-to-control systems.",
+                    "authors": [
+                      "Yuan-Yi Fan"
+                    ],
+                    "published": "2026-07-28T17:36:22Z",
+                    "updated": "2026-07-28T17:36:22Z",
+                    "url": "http://arxiv.org/abs/2607.26024v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.26024v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.HC",
+                    "categories": [
+                      "cs.HC",
+                      "cs.SD",
+                      "eess.AS"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.26023v1",
+                    "title": "CHARM: A Multimodal Graph Foundation Model with Hierarchical Context Modeling for Zero-Shot Transfer",
+                    "summary": "Graph foundation models (GFMs) have emerged as a promising paradigm for transferring knowledge across graph domains and tasks. Real-world graphs associate nodes with text, images, and other modalities, making multimodal graphs essential for representing complex entities and relations. Moreover, collecting labels and adapting models for every new graph domain is costly and often infeasible, motivating zero-shot transfer. Unfortunately, zero-shot transfer on multimodal graphs remains underexplored. Existing GNN-based graph foundation models typically require downstream adaptation, whereas LLM-based graph methods mainly address unimodal graphs or tasks within a single domain. This setting presents two key challenges. First, models must generalize knowledge from individual modalities while capturing transferable cross-modal relations. Second, without target-domain fine-tuning, node representations remain entangled with domain-specific structures and modality-specific characteristics, obscuring shared concepts in unseen domains. To address these challenges, we propose CHARM, a multimodal graph foundation model with hierarchical context modeling for zero-shot transfer. CHARM replaces isolated raw nodes with hierarchical graph contexts that capture multimodal semantics and cross-modal relations. These contexts map domain-specific node patterns to shared high-level concepts, reducing reliance on target-domain supervision or adaptation. A modality-aware graph context encoder integrates multimodal information with graph structure and converts the resulting representations into graph tokens for a large language model . Experiments show consistent improvements on zero-shot multimodal graph tasks.",
+                    "authors": [
+                      "Ankang Yang",
+                      "Jitao Zhao",
+                      "Di Jin",
+                      "Yuxiao Huang",
+                      "Dongxiao He"
+                    ],
+                    "published": "2026-07-28T17:35:26Z",
+                    "updated": "2026-07-28T17:35:26Z",
+                    "url": "http://arxiv.org/abs/2607.26023v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.26023v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.26015v1",
+                    "title": "Instruction-Tuned Models Locally Reuse Human Syntax More Than Humans Do",
+                    "summary": "Syntactic convergence (the tendency of speakers to adapt in language towards the grammatical profiles of their interlocutors) is a well-documented feature of human dialogue widely considered to operate below conscious awareness. Whether large language models exhibit analogous syntactic convergence toward human users relative to human baselines and across a broad range of syntactic constructions remains an open question. Using substitution-paradigm data in which model generations replace one speaker's turns in pre-existing human dialogues, this study measures turn-adjacent reuse of context-free grammar (CFG) rules across sixteen open-weight Llama and Gemma models (1B-70B, pretrained and instruction-tuned) at 1,901 matched positions per model. Every model showed greater CFG-rule overlap with the preceding human turn than with a sampled unrelated human prime, and in every model this actual-versus-random difference was larger for lower-frequency rules. Each instruction-tuned model also showed greater natural-output overlap with the actual prime than the human response it replaced, and all eight matched architecture pairs exhibited greater actual-prime overlap after instruction tuning. However, relative to pretrained variants, instruction-tuned outputs overlapped more with unrelated primes, showed a smaller actual-versus-random increment, and had lower conditional rule-reuse odds once target rule-set size was held constant. In exploratory analyses, each model exhibited greater mean lexical and semantic similarity to the preceding turn than the matched human responses did. Instruction-tuned models additionally produced responses with greater mean semantic similarity than their pretrained counterparts in all eight architecture pairs, whereas the lexical similarity results were more heterogeneous.",
+                    "authors": [
+                      "Zandi Eberstadt"
+                    ],
+                    "published": "2026-07-28T17:27:47Z",
+                    "updated": "2026-07-28T17:27:47Z",
+                    "url": "http://arxiv.org/abs/2607.26015v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.26015v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CL",
+                    "categories": [
+                      "cs.CL"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25996v1",
+                    "title": "RepoReasoner: Evaluating Repository-Level Code Reasoning Ability of Long-Context Language Models",
+                    "summary": "Recent large language models (LLMs) have shown strong performance on software engineering tasks, yet most existing benchmarks evaluate code reasoning at the function level, where all relevant information is localized. This setting fails to reflect real-world development, which requires reasoning across multiple files and complex dependency structures. We introduce RepoReasoner, a benchmark for evaluating repository-level code reasoning. It assesses two complementary abilities: Output Prediction, which measures fine-grained, stateful execution reasoning across files, and Call Chain Prediction, which evaluates high-level architectural dependency understanding under noisy context. Our benchmark is constructed through a multi-stage pipeline that leverages dynamic tracing of pytest executions to obtain ground-truth call chains, along with LLM-based I/O rewriting to reduce memorization effects. We evaluate seven state-of-the-art LLMs. Even under oracle context, the best-performing model achieves only 69.1% Pass@1 on Output Prediction, indicating that cross-file reasoning remains a major challenge. In Call Chain Prediction, models exhibit high precision but low recall, suggesting limited multi-hop dependency understanding. Furthermore, performance drops on rewritten data reveal partial reliance on memorization, and longer contexts do not consistently improve results due to noise. These findings highlight fundamental limitations in current LLMs' repository-level reasoning and motivate future work on structured architectural understanding and cross-file inference.",
+                    "authors": [
+                      "Yanlin Wang",
+                      "Suiquan Wang",
+                      "Yanli Wang",
+                      "Bowen Zhang",
+                      "Daya Guo",
+                      "Jiachi Chen",
+                      "Zibin Zheng"
+                    ],
+                    "published": "2026-07-28T17:12:41Z",
+                    "updated": "2026-07-28T17:12:41Z",
+                    "url": "http://arxiv.org/abs/2607.25996v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25996v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.SE",
+                    "categories": [
+                      "cs.SE"
+                    ]
+                  }
+                ],
+                "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+              }
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "format",
+              "args": {
+                "template": "sections",
+                "headline": "Điểm tin nghiên cứu trí tuệ nhân tạo (AI) mới nhất từ arXiv",
+                "items": [
+                  {
+                    "source": "arXiv",
+                    "title": "$π\\mathbf{R}^2$: Reactive Real-time Flow Policies",
+                    "summary": "Nghiên cứu giới thiệu $π\\mathbf{R}^2$, một phương pháp giúp các mô hình điều khiển robot hoạt động theo thời gian thực và phản hồi nhanh hơn bằng cách chia kênh xử lý cảm nhận (nhanh cho proprioception, chậm cho vision-language). Thử nghiệm thực tế giúp tăng tốc độ phản hồi lên gấp 4 lần (~25Hz) và cải thiện tỷ lệ thành công lên tới 30%.",
+                    "url": "http://arxiv.org/abs/2607.26055v1",
+                    "section": "Điều khiển Robot & Thời gian thực"
+                  },
+                  {
+                    "section": "Ứng dụng Âm thanh & Điều khiển",
+                    "url": "http://arxiv.org/abs/2607.26024v1",
+                    "summary": "Đề xuất kiến trúc LLM4OSC giúp kiểm soát giao thức Open Sound Control (OSC) bằng ngôn ngữ tự nhiên một cách an toàn thông qua việc xác thực deterministic, loại bỏ hiện tượng ảo giác (hallucination) của LLM trong các buổi biểu diễn trực tiếp hoặc sản xuất âm thanh chuyên nghiệp.",
+                    "title": "LLM4OSC: Profile-Bound Natural Language Control with Deterministic Validation for Open Sound Control",
+                    "source": "arXiv"
+                  },
+                  {
+                    "title": "CHARM: A Multimodal Graph Foundation Model with Hierarchical Context Modeling for Zero-Shot Transfer",
+                    "section": "Mô hình nền tảng Đồ thị (Graph Foundation Models)",
+                    "url": "http://arxiv.org/abs/2607.26023v1",
+                    "source": "arXiv",
+                    "summary": "Giới thiệu CHARM, một mô hình nền tảng đồ thị đa phương thức (multimodal graph foundation model) giúp chuyển đổi tri thức zero-shot trên các đồ thị phức tạp chứa cả văn bản, hình ảnh và các phương thức khác bằng cách mô hình hóa ngữ cảnh phân cấp."
+                  },
+                  {
+                    "title": "Instruction-Tuned Models Locally Reuse Human Syntax More Than Humans Do",
+                    "source": "arXiv",
+                    "section": "Ngôn ngữ học & Hành vi LLM",
+                    "url": "http://arxiv.org/abs/2607.26015v1",
+                    "summary": "Nghiên cứu chỉ ra rằng các mô hình ngôn ngữ lớn được tinh chỉnh theo hướng dẫn (instruction-tuned LLMs) có xu hướng lặp lại cấu trúc cú pháp của người đối thoại (syntactic convergence) thậm chí còn nhiều hơn cả con người trong các cuộc hội thoại thực tế."
+                  },
+                  {
+                    "source": "arXiv",
+                    "url": "http://arxiv.org/abs/2607.25996v1",
+                    "section": "Đánh giá khả năng Lập trình của LLM",
+                    "title": "RepoReasoner: Evaluating Repository-Level Code Reasoning Ability of Long-Context Language Models",
+                    "summary": "Giới thiệu RepoReasoner, một bộ benchmark mới để đánh giá khả năng suy luận mã nguồn ở cấp độ toàn bộ kho lưu trữ (repository-level) của các LLM ngữ cảnh dài, tập trung vào khả năng dự đoán đầu ra và chuỗi gọi hàm (call chain) xuyên suốt nhiều tệp tin."
+                  }
+                ]
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "format",
+              "args": {
+                "template": "sections",
+                "headline": "Điểm tin nghiên cứu trí tuệ nhân tạo (AI) mới nhất từ arXiv",
+                "items": [
+                  {
+                    "source": "arXiv",
+                    "title": "$π\\mathbf{R}^2$: Reactive Real-time Flow Policies",
+                    "summary": "Nghiên cứu giới thiệu $π\\mathbf{R}^2$, một phương pháp giúp các mô hình điều khiển robot hoạt động theo thời gian thực và phản hồi nhanh hơn bằng cách chia kênh xử lý cảm nhận (nhanh cho proprioception, chậm cho vision-language). Thử nghiệm thực tế giúp tăng tốc độ phản hồi lên gấp 4 lần (~25Hz) và cải thiện tỷ lệ thành công lên tới 30%.",
+                    "url": "http://arxiv.org/abs/2607.26055v1",
+                    "section": "Điều khiển Robot & Thời gian thực"
+                  },
+                  {
+                    "section": "Ứng dụng Âm thanh & Điều khiển",
+                    "url": "http://arxiv.org/abs/2607.26024v1",
+                    "summary": "Đề xuất kiến trúc LLM4OSC giúp kiểm soát giao thức Open Sound Control (OSC) bằng ngôn ngữ tự nhiên một cách an toàn thông qua việc xác thực deterministic, loại bỏ hiện tượng ảo giác (hallucination) của LLM trong các buổi biểu diễn trực tiếp hoặc sản xuất âm thanh chuyên nghiệp.",
+                    "title": "LLM4OSC: Profile-Bound Natural Language Control with Deterministic Validation for Open Sound Control",
+                    "source": "arXiv"
+                  },
+                  {
+                    "title": "CHARM: A Multimodal Graph Foundation Model with Hierarchical Context Modeling for Zero-Shot Transfer",
+                    "section": "Mô hình nền tảng Đồ thị (Graph Foundation Models)",
+                    "url": "http://arxiv.org/abs/2607.26023v1",
+                    "source": "arXiv",
+                    "summary": "Giới thiệu CHARM, một mô hình nền tảng đồ thị đa phương thức (multimodal graph foundation model) giúp chuyển đổi tri thức zero-shot trên các đồ thị phức tạp chứa cả văn bản, hình ảnh và các phương thức khác bằng cách mô hình hóa ngữ cảnh phân cấp."
+                  },
+                  {
+                    "title": "Instruction-Tuned Models Locally Reuse Human Syntax More Than Humans Do",
+                    "source": "arXiv",
+                    "section": "Ngôn ngữ học & Hành vi LLM",
+                    "url": "http://arxiv.org/abs/2607.26015v1",
+                    "summary": "Nghiên cứu chỉ ra rằng các mô hình ngôn ngữ lớn được tinh chỉnh theo hướng dẫn (instruction-tuned LLMs) có xu hướng lặp lại cấu trúc cú pháp của người đối thoại (syntactic convergence) thậm chí còn nhiều hơn cả con người trong các cuộc hội thoại thực tế."
+                  },
+                  {
+                    "source": "arXiv",
+                    "url": "http://arxiv.org/abs/2607.25996v1",
+                    "section": "Đánh giá khả năng Lập trình của LLM",
+                    "title": "RepoReasoner: Evaluating Repository-Level Code Reasoning Ability of Long-Context Language Models",
+                    "summary": "Giới thiệu RepoReasoner, một bộ benchmark mới để đánh giá khả năng suy luận mã nguồn ở cấp độ toàn bộ kho lưu trữ (repository-level) của các LLM ngữ cảnh dài, tập trung vào khả năng dự đoán đầu ra và chuỗi gọi hàm (call chain) xuyên suốt nhiều tệp tin."
+                  }
+                ]
+              },
+              "result": {
+                "tool": "render_digest",
+                "template": "sections",
+                "markdown": "# Điểm tin nghiên cứu trí tuệ nhân tạo (AI) mới nhất từ arXiv\n\n## Điều khiển Robot & Thời gian thực\n- Nghiên cứu giới thiệu $π\\mathbf{R}^2$, một phương pháp giúp các mô hình điều khiển robot hoạt động theo thời gian thực và phản hồi nhanh hơn bằng cách chia kênh xử lý cảm nhận (nhanh cho proprioception, chậm cho vision-language). Thử nghiệm thực tế giúp tăng tốc độ phản hồi lê... - [arXiv](http://arxiv.org/abs/2607.26055v1)\n\n## Ứng dụng Âm thanh & Điều khiển\n- Đề xuất kiến trúc LLM4OSC giúp kiểm soát giao thức Open Sound Control (OSC) bằng ngôn ngữ tự nhiên một cách an toàn thông qua việc xác thực deterministic, loại bỏ hiện tượng ảo giác (hallucination) của LLM trong các buổi biểu diễn trực tiếp hoặc sản xuất âm thanh chuyên nghiệp. - [arXiv](http://arxiv.org/abs/2607.26024v1)\n\n## Mô hình nền tảng Đồ thị (Graph Foundation Models)\n- Giới thiệu CHARM, một mô hình nền tảng đồ thị đa phương thức (multimodal graph foundation model) giúp chuyển đổi tri thức zero-shot trên các đồ thị phức tạp chứa cả văn bản, hình ảnh và các phương thức khác bằng cách mô hình hóa ngữ cảnh phân cấp. - [arXiv](http://arxiv.org/abs/2607.26023v1)\n\n## Ngôn ngữ học & Hành vi LLM\n- Nghiên cứu chỉ ra rằng các mô hình ngôn ngữ lớn được tinh chỉnh theo hướng dẫn (instruction-tuned LLMs) có xu hướng lặp lại cấu trúc cú pháp của người đối thoại (syntactic convergence) thậm chí còn nhiều hơn cả con người trong các cuộc hội thoại thực tế. - [arXiv](http://arxiv.org/abs/2607.26015v1)\n\n## Đánh giá khả năng Lập trình của LLM\n- Giới thiệu RepoReasoner, một bộ benchmark mới để đánh giá khả năng suy luận mã nguồn ở cấp độ toàn bộ kho lưu trữ (repository-level) của các LLM ngữ cảnh dài, tập trung vào khả năng dự đoán đầu ra và chuỗi gọi hàm (call chain) xuyên suốt nhiều tệp tin. - [arXiv](http://arxiv.org/abs/2607.25996v1)\n",
+                "item_count": 5
+              }
+            }
+          ]
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "topic": "news",
+            "timeframe": "day",
+            "query": "AI news"
+          },
+          "result": {
+            "tool": "web_search",
+            "error": "RuntimeError",
+            "message": "Missing TAVILY_API_KEY env var"
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "search_type": "Latest",
+            "query": "AI news"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "RuntimeError",
+            "message": "Missing RAPIDAPI_KEY env var"
+          }
+        },
+        {
+          "tool": "papers",
+          "args": {
+            "query": "large language models",
+            "sort_by": "submittedDate"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "large language models",
+            "api_query": "all:large AND all:language AND all:models",
+            "total_results": 96797,
+            "items": [
+              {
+                "arxiv_id": "2607.26055v1",
+                "title": "$π\\mathbf{R}^2$: Reactive Real-time Flow Policies",
+                "summary": "Generalist manipulation policies increasingly take the form of action-chunking flow policies built on large pretrained backbones. Such chunks run open-loop, so the policy cannot react to sensory input arriving mid-execution, sacrificing \\emph{reactivity}. Replanning more often would restore it, but the perception-to-action pipeline (a large backbone plus multiple denoising steps) is too slow: this \\emph{latency} forbids frequent replanning and leaves committed actions stale, making such policies ill-suited for dynamic, closed-loop control. We present $π\\mathbf{R}^2$, which makes these policies reactive and real-time while retaining large backbones, expressive multi-modal policies, and multi-action prediction. Built on the per-position noise schedule of diffusion forcing, $π\\mathbf{R}^2$ contributes two ideas. First, it splits conditioning into a fast channel (proprioception, fresh every tick) and an asynchronously updated slow channel (vision-language features), so the policy reacts to proprioception within a chunk while tolerating stale vision. Second, a latency-adaptive flow schedule treats in-flight actions as inpainting conditioning and emits actions in one denoising step per call, letting one trained model adapt to varying hardware latency. Requiring minimal modification to existing architectures, $π\\mathbf{R}^2$ can be finetuned from a pretrained policy: applied to GR00T-N1.7 on a real xArm6+XHand platform, it replans closed-loop roughly $4\\times$ faster than the base policy (~$25$Hz on an A5000 GPU), acting on a fresh observation every $40$ms. Across simulation and real-world manipulation tasks, $π\\mathbf{R}^2$ improves the success rate by up to $23\\%$ in simulation and $30\\%$ in the real world over the strongest baseline. Project page: https://pi-r2-flow.github.io/",
+                "authors": [
+                  "Sungjae Park",
+                  "Shubham Tulsiani"
+                ],
+                "published": "2026-07-28T17:59:31Z",
+                "updated": "2026-07-28T17:59:31Z",
+                "url": "http://arxiv.org/abs/2607.26055v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.26055v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.RO",
+                "categories": [
+                  "cs.RO",
+                  "cs.AI",
+                  "cs.LG"
+                ]
+              },
+              {
+                "arxiv_id": "2607.26024v1",
+                "title": "LLM4OSC: Profile-Bound Natural Language Control with Deterministic Validation for Open Sound Control",
+                "summary": "Open Sound Control (OSC) is the dominant wire protocol for real-time parametric control in professional audio, live performance, and virtual production. Large language models can emit plausible OSC, but they hallucinate addresses, mishandle type tags, and fail under paraphrase- unacceptable in show-critical contexts. We present LLM4OSC, a local-first architecture in which models propose structured intent JSON over a human-reviewed device profile, and deterministic code validates, clamps, and encodes before any UDP send. We introduce a frozen evaluation harness with CI gates on wrong-send rate: mismatches that would still pass validation and transmit. On a Max/MSP hero profile (12 patterns; 8 literal + 8 paraphrase + 4 refusal cases), after profile tag enrichment, symbolic slot fill, NL refine, and a retrieval confidence gate, backends B0--B3 all pass frozen gates (100% semantic accuracy, 0% wrong-send). B0 (rules) remains the production default at ~0.05ms; LLM backends remain ~3-4s. Historical few-shot B2 accuracy of 62.5% rises to 100% on this suite only after symbolic post-processing- not because the 0.5B model alone becomes show-safe. We argue for propose-validate-send and wrong-send rate as first-class metrics for language-to-control systems.",
+                "authors": [
+                  "Yuan-Yi Fan"
+                ],
+                "published": "2026-07-28T17:36:22Z",
+                "updated": "2026-07-28T17:36:22Z",
+                "url": "http://arxiv.org/abs/2607.26024v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.26024v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.HC",
+                "categories": [
+                  "cs.HC",
+                  "cs.SD",
+                  "eess.AS"
+                ]
+              },
+              {
+                "arxiv_id": "2607.26023v1",
+                "title": "CHARM: A Multimodal Graph Foundation Model with Hierarchical Context Modeling for Zero-Shot Transfer",
+                "summary": "Graph foundation models (GFMs) have emerged as a promising paradigm for transferring knowledge across graph domains and tasks. Real-world graphs associate nodes with text, images, and other modalities, making multimodal graphs essential for representing complex entities and relations. Moreover, collecting labels and adapting models for every new graph domain is costly and often infeasible, motivating zero-shot transfer. Unfortunately, zero-shot transfer on multimodal graphs remains underexplored. Existing GNN-based graph foundation models typically require downstream adaptation, whereas LLM-based graph methods mainly address unimodal graphs or tasks within a single domain. This setting presents two key challenges. First, models must generalize knowledge from individual modalities while capturing transferable cross-modal relations. Second, without target-domain fine-tuning, node representations remain entangled with domain-specific structures and modality-specific characteristics, obscuring shared concepts in unseen domains. To address these challenges, we propose CHARM, a multimodal graph foundation model with hierarchical context modeling for zero-shot transfer. CHARM replaces isolated raw nodes with hierarchical graph contexts that capture multimodal semantics and cross-modal relations. These contexts map domain-specific node patterns to shared high-level concepts, reducing reliance on target-domain supervision or adaptation. A modality-aware graph context encoder integrates multimodal information with graph structure and converts the resulting representations into graph tokens for a large language model . Experiments show consistent improvements on zero-shot multimodal graph tasks.",
+                "authors": [
+                  "Ankang Yang",
+                  "Jitao Zhao",
+                  "Di Jin",
+                  "Yuxiao Huang",
+                  "Dongxiao He"
+                ],
+                "published": "2026-07-28T17:35:26Z",
+                "updated": "2026-07-28T17:35:26Z",
+                "url": "http://arxiv.org/abs/2607.26023v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.26023v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2607.26015v1",
+                "title": "Instruction-Tuned Models Locally Reuse Human Syntax More Than Humans Do",
+                "summary": "Syntactic convergence (the tendency of speakers to adapt in language towards the grammatical profiles of their interlocutors) is a well-documented feature of human dialogue widely considered to operate below conscious awareness. Whether large language models exhibit analogous syntactic convergence toward human users relative to human baselines and across a broad range of syntactic constructions remains an open question. Using substitution-paradigm data in which model generations replace one speaker's turns in pre-existing human dialogues, this study measures turn-adjacent reuse of context-free grammar (CFG) rules across sixteen open-weight Llama and Gemma models (1B-70B, pretrained and instruction-tuned) at 1,901 matched positions per model. Every model showed greater CFG-rule overlap with the preceding human turn than with a sampled unrelated human prime, and in every model this actual-versus-random difference was larger for lower-frequency rules. Each instruction-tuned model also showed greater natural-output overlap with the actual prime than the human response it replaced, and all eight matched architecture pairs exhibited greater actual-prime overlap after instruction tuning. However, relative to pretrained variants, instruction-tuned outputs overlapped more with unrelated primes, showed a smaller actual-versus-random increment, and had lower conditional rule-reuse odds once target rule-set size was held constant. In exploratory analyses, each model exhibited greater mean lexical and semantic similarity to the preceding turn than the matched human responses did. Instruction-tuned models additionally produced responses with greater mean semantic similarity than their pretrained counterparts in all eight architecture pairs, whereas the lexical similarity results were more heterogeneous.",
+                "authors": [
+                  "Zandi Eberstadt"
+                ],
+                "published": "2026-07-28T17:27:47Z",
+                "updated": "2026-07-28T17:27:47Z",
+                "url": "http://arxiv.org/abs/2607.26015v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.26015v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CL",
+                "categories": [
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25996v1",
+                "title": "RepoReasoner: Evaluating Repository-Level Code Reasoning Ability of Long-Context Language Models",
+                "summary": "Recent large language models (LLMs) have shown strong performance on software engineering tasks, yet most existing benchmarks evaluate code reasoning at the function level, where all relevant information is localized. This setting fails to reflect real-world development, which requires reasoning across multiple files and complex dependency structures. We introduce RepoReasoner, a benchmark for evaluating repository-level code reasoning. It assesses two complementary abilities: Output Prediction, which measures fine-grained, stateful execution reasoning across files, and Call Chain Prediction, which evaluates high-level architectural dependency understanding under noisy context. Our benchmark is constructed through a multi-stage pipeline that leverages dynamic tracing of pytest executions to obtain ground-truth call chains, along with LLM-based I/O rewriting to reduce memorization effects. We evaluate seven state-of-the-art LLMs. Even under oracle context, the best-performing model achieves only 69.1% Pass@1 on Output Prediction, indicating that cross-file reasoning remains a major challenge. In Call Chain Prediction, models exhibit high precision but low recall, suggesting limited multi-hop dependency understanding. Furthermore, performance drops on rewritten data reveal partial reliance on memorization, and longer contexts do not consistently improve results due to noise. These findings highlight fundamental limitations in current LLMs' repository-level reasoning and motivate future work on structured architectural understanding and cross-file inference.",
+                "authors": [
+                  "Yanlin Wang",
+                  "Suiquan Wang",
+                  "Yanli Wang",
+                  "Bowen Zhang",
+                  "Daya Guo",
+                  "Jiachi Chen",
+                  "Zibin Zheng"
+                ],
+                "published": "2026-07-28T17:12:41Z",
+                "updated": "2026-07-28T17:12:41Z",
+                "url": "http://arxiv.org/abs/2607.25996v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25996v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.SE",
+                "categories": [
+                  "cs.SE"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        },
+        {
+          "tool": "format",
+          "args": {
+            "template": "sections",
+            "headline": "Điểm tin nghiên cứu trí tuệ nhân tạo (AI) mới nhất từ arXiv",
+            "items": [
+              {
+                "source": "arXiv",
+                "title": "$π\\mathbf{R}^2$: Reactive Real-time Flow Policies",
+                "summary": "Nghiên cứu giới thiệu $π\\mathbf{R}^2$, một phương pháp giúp các mô hình điều khiển robot hoạt động theo thời gian thực và phản hồi nhanh hơn bằng cách chia kênh xử lý cảm nhận (nhanh cho proprioception, chậm cho vision-language). Thử nghiệm thực tế giúp tăng tốc độ phản hồi lên gấp 4 lần (~25Hz) và cải thiện tỷ lệ thành công lên tới 30%.",
+                "url": "http://arxiv.org/abs/2607.26055v1",
+                "section": "Điều khiển Robot & Thời gian thực"
+              },
+              {
+                "section": "Ứng dụng Âm thanh & Điều khiển",
+                "url": "http://arxiv.org/abs/2607.26024v1",
+                "summary": "Đề xuất kiến trúc LLM4OSC giúp kiểm soát giao thức Open Sound Control (OSC) bằng ngôn ngữ tự nhiên một cách an toàn thông qua việc xác thực deterministic, loại bỏ hiện tượng ảo giác (hallucination) của LLM trong các buổi biểu diễn trực tiếp hoặc sản xuất âm thanh chuyên nghiệp.",
+                "title": "LLM4OSC: Profile-Bound Natural Language Control with Deterministic Validation for Open Sound Control",
+                "source": "arXiv"
+              },
+              {
+                "title": "CHARM: A Multimodal Graph Foundation Model with Hierarchical Context Modeling for Zero-Shot Transfer",
+                "section": "Mô hình nền tảng Đồ thị (Graph Foundation Models)",
+                "url": "http://arxiv.org/abs/2607.26023v1",
+                "source": "arXiv",
+                "summary": "Giới thiệu CHARM, một mô hình nền tảng đồ thị đa phương thức (multimodal graph foundation model) giúp chuyển đổi tri thức zero-shot trên các đồ thị phức tạp chứa cả văn bản, hình ảnh và các phương thức khác bằng cách mô hình hóa ngữ cảnh phân cấp."
+              },
+              {
+                "title": "Instruction-Tuned Models Locally Reuse Human Syntax More Than Humans Do",
+                "source": "arXiv",
+                "section": "Ngôn ngữ học & Hành vi LLM",
+                "url": "http://arxiv.org/abs/2607.26015v1",
+                "summary": "Nghiên cứu chỉ ra rằng các mô hình ngôn ngữ lớn được tinh chỉnh theo hướng dẫn (instruction-tuned LLMs) có xu hướng lặp lại cấu trúc cú pháp của người đối thoại (syntactic convergence) thậm chí còn nhiều hơn cả con người trong các cuộc hội thoại thực tế."
+              },
+              {
+                "source": "arXiv",
+                "url": "http://arxiv.org/abs/2607.25996v1",
+                "section": "Đánh giá khả năng Lập trình của LLM",
+                "title": "RepoReasoner: Evaluating Repository-Level Code Reasoning Ability of Long-Context Language Models",
+                "summary": "Giới thiệu RepoReasoner, một bộ benchmark mới để đánh giá khả năng suy luận mã nguồn ở cấp độ toàn bộ kho lưu trữ (repository-level) của các LLM ngữ cảnh dài, tập trung vào khả năng dự đoán đầu ra và chuỗi gọi hàm (call chain) xuyên suốt nhiều tệp tin."
+              }
+            ]
+          },
+          "result": {
+            "tool": "render_digest",
+            "template": "sections",
+            "markdown": "# Điểm tin nghiên cứu trí tuệ nhân tạo (AI) mới nhất từ arXiv\n\n## Điều khiển Robot & Thời gian thực\n- Nghiên cứu giới thiệu $π\\mathbf{R}^2$, một phương pháp giúp các mô hình điều khiển robot hoạt động theo thời gian thực và phản hồi nhanh hơn bằng cách chia kênh xử lý cảm nhận (nhanh cho proprioception, chậm cho vision-language). Thử nghiệm thực tế giúp tăng tốc độ phản hồi lê... - [arXiv](http://arxiv.org/abs/2607.26055v1)\n\n## Ứng dụng Âm thanh & Điều khiển\n- Đề xuất kiến trúc LLM4OSC giúp kiểm soát giao thức Open Sound Control (OSC) bằng ngôn ngữ tự nhiên một cách an toàn thông qua việc xác thực deterministic, loại bỏ hiện tượng ảo giác (hallucination) của LLM trong các buổi biểu diễn trực tiếp hoặc sản xuất âm thanh chuyên nghiệp. - [arXiv](http://arxiv.org/abs/2607.26024v1)\n\n## Mô hình nền tảng Đồ thị (Graph Foundation Models)\n- Giới thiệu CHARM, một mô hình nền tảng đồ thị đa phương thức (multimodal graph foundation model) giúp chuyển đổi tri thức zero-shot trên các đồ thị phức tạp chứa cả văn bản, hình ảnh và các phương thức khác bằng cách mô hình hóa ngữ cảnh phân cấp. - [arXiv](http://arxiv.org/abs/2607.26023v1)\n\n## Ngôn ngữ học & Hành vi LLM\n- Nghiên cứu chỉ ra rằng các mô hình ngôn ngữ lớn được tinh chỉnh theo hướng dẫn (instruction-tuned LLMs) có xu hướng lặp lại cấu trúc cú pháp của người đối thoại (syntactic convergence) thậm chí còn nhiều hơn cả con người trong các cuộc hội thoại thực tế. - [arXiv](http://arxiv.org/abs/2607.26015v1)\n\n## Đánh giá khả năng Lập trình của LLM\n- Giới thiệu RepoReasoner, một bộ benchmark mới để đánh giá khả năng suy luận mã nguồn ở cấp độ toàn bộ kho lưu trữ (repository-level) của các LLM ngữ cảnh dài, tập trung vào khả năng dự đoán đầu ra và chuỗi gọi hàm (call chain) xuyên suốt nhiều tệp tin. - [arXiv](http://arxiv.org/abs/2607.25996v1)\n",
+            "item_count": 5
+          }
+        }
+      ],
+      "ended_at": "2026-07-29T15:28:01"
+    }
+  ]
+}

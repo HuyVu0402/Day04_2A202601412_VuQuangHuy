@@ -217,14 +217,18 @@ st.markdown(PASTEL_CSS, unsafe_allow_html=True)
 
 
 def get_auto_provider() -> tuple[str, str]:
-    if os.getenv("GEMINI_API_KEY"):
-        return "gemini", "gemini-3.5-flash"
-    if os.getenv("OPENROUTER_API_KEY"):
-        return "openrouter", "google/gemini-3.5-flash"
     if os.getenv("OPENAI_API_KEY"):
-        return "openai", "gpt-4o-mini"
+        model = os.getenv("OPENAI_MODEL") or os.getenv("MODEL") or "gpt-4o-mini"
+        return "openai", model
+    if os.getenv("OPENROUTER_API_KEY"):
+        model = os.getenv("OPENROUTER_MODEL") or os.getenv("MODEL") or "google/gemini-3.5-flash"
+        return "openrouter", model
     if os.getenv("ANTHROPIC_API_KEY"):
-        return "anthropic", "claude-3-5-haiku-20241022"
+        model = os.getenv("ANTHROPIC_MODEL") or os.getenv("MODEL") or "claude-3-5-haiku-20241022"
+        return "anthropic", model
+    if os.getenv("GEMINI_API_KEY"):
+        model = os.getenv("GEMINI_MODEL") or os.getenv("MODEL") or "gemini-3.5-flash"
+        return "gemini", model
     return "gemini", "gemini-3.5-flash"
 
 

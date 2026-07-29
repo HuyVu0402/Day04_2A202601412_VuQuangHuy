@@ -9,7 +9,15 @@
 tools:
   # ---------------- Core tools ----------------
   - name: clarify
-    description: "Gửi một câu hỏi cho người dùng."
+    description: |
+      Gửi một câu hỏi cho người dùng để yêu cầu người dùng bổ sung thông tin còn thiếu trước khi tiếp tục xử lý.
+      Sử dụng khi:
+      - Thiếu thông tin bắt buộc để thực hiện yêu cầu.
+      - Có nhiều cách hiểu và cần người dùng xác nhận.
+
+      Không sử dụng khi:
+      - Đã có đủ thông tin để thực hiện.
+      - Có thể suy luận hợp lý từ ngữ cảnh.
     parameters:
       type: object
       properties:
@@ -38,7 +46,15 @@ tools:
       required: [query]
 
   - name: lookup
-    description: "Tra cứu thông tin trên internet."
+    description: |
+      Tìm kiếm thông tin trên Internet bằng Tavily.
+
+      Sử dụng khi:
+      - Cần tìm thông tin hoặc tin tức trên web.
+
+      Không sử dụng khi:
+      - Đã có URL.
+      - Cần tìm bài đăng mạng xã hội.
     parameters:
       type: object
       properties:
@@ -49,7 +65,7 @@ tools:
       required: [query]
 
   - name: fetch
-    description: "Lấy nội dung từ một địa chỉ."
+    description: "Lấy nội dung từ một địa chỉ URL."
     parameters:
       type: object
       properties:
@@ -57,7 +73,9 @@ tools:
       required: [url]
 
   - name: format
-    description: "Trình bày dữ liệu đã có thành văn bản."
+    description: |
+      Trình bày dữ liệu đã có thành văn bản.
+      Tool này không lấy thêm dữ liệu mới, chỉ xử lý dữ liệu đã có.
     parameters:
       type: object
       properties:
@@ -116,3 +134,22 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  - name: document_stats
+    description: |
+      Thống kê các thông tin cơ bản của một văn bản.
+
+      Sử dụng khi:
+      - Người dùng muốn biết số từ, số câu, số ký tự hoặc số đoạn.
+      - Người dùng muốn ước tính thời gian đọc.
+
+      Không sử dụng khi:
+      - Người dùng muốn chỉnh sửa hoặc tóm tắt văn bản.
+
+    parameters:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Văn bản cần thống kê.
+      required: [text]
